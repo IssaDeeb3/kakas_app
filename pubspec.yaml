@@ -1,0 +1,76 @@
+name: kakas_app
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  #? Local Storage
+  get_storage: ^2.1.1
+
+  flutter_hooks:
+  flutter_screenutil: ^5.9.0
+  provider: ^6.0.5
+  http: ^0.13.4
+  lottie: ^2.6.0
+  logger: ^2.0.1
+  gap: ^3.0.1
+  another_flushbar:
+  google_fonts:
+  shimmer: ^3.0.0
+  flutter_gen: ^5.4.0
+  fast_cached_network_image: ^1.2.0
+  loading_animation_widget: ^1.2.1
+
+  permission_handler: ^11.0.0
+  file_picker: ^5.5.0
+
+  dotted_border: ^2.0.0+3
+  blur: ^3.1.0
+  dio: ^5.4.3+1
+  auto_height_grid_view: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  #? Assets Generator
+  flutter_gen_runner:
+  build_runner:
+
+  flutter_lints: ^3.0.0
+  flutter_launcher_icons:
+  flutter_native_splash:
+
+flutter_gen:
+  output: lib/gen/
+  integrations:
+    lottie: true
+
+#? dart run flutter_launcher_icons:main
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/logo.png"
+
+#? dart run flutter_native_splash:create
+flutter_native_splash:
+  image: assets/images/logo.png
+  color: "#FFFFFF"
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animation/
