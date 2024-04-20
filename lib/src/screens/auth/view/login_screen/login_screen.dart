@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,101 +29,109 @@ class LoginScreen extends HookWidget {
       ApiStrings.password: useTextEditingController(),
     };
 
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: Form(
-          key: formKey.value,
-          child: Stack(
-            children: [
-              //! Background Image
-              Assets.animation.loginBackground.lottie(
-                height: context.height,
-                fit: BoxFit.cover,
-              ),
+    return WillPopScope(
+      onWillPop: () {
+        exit(0);
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: Form(
+            key: formKey.value,
+            child: Stack(
+              children: [
+                //! Background Image
+                Assets.animation.loginBackground.lottie(
+                  height: context.height,
+                  fit: BoxFit.cover,
+                ),
 
-              //! Fields Container
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: AppSpaces.defaultPadding,
-                  ),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(AppRadius.largeContainerRadius))),
-                  padding: const EdgeInsets.all(AppSpaces.defaultPadding),
-                  child: SingleChildScrollView(
-                    child: Consumer<AuthVM>(
-                      builder: (context, authVM, child) {
-                        return Column(
-                          children: [
-                            context.xLargeGap,
+                //! Fields Container
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: AppSpaces.defaultPadding,
+                    ),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(AppRadius.largeContainerRadius))),
+                    padding: const EdgeInsets.all(AppSpaces.defaultPadding),
+                    child: SingleChildScrollView(
+                      child: Consumer<AuthVM>(
+                        builder: (context, authVM, child) {
+                          return Column(
+                            children: [
+                              context.xLargeGap,
 
-                            Assets.images.logo.image(
-                              width: 100.w,
-                            ),
+                              Assets.images.logo.image(
+                                width: 100.w,
+                              ),
 
-                            context.largeGap,
+                              context.largeGap,
 
-                            Text(
-                              'Let\'s Login to your\naccount first!',
-                              style: context.headLine,
-                              textAlign: TextAlign.center,
-                            ),
+                              Text(
+                                'Let\'s Login to your\naccount first!',
+                                style: context.headLine,
+                                textAlign: TextAlign.center,
+                              ),
 
-                            context.xLargeGap,
+                              context.xLargeGap,
 
-                            //! Login formField
-                            LoginFields(controllers: fieldsController),
-                            context.largeGap,
+                              //! Login formField
+                              LoginFields(controllers: fieldsController),
+                              context.largeGap,
 
-                            //! Login Button
-                            Button(
-                                isLoading: authVM.isLoading,
-                                label: 'Login',
-                                onPressed: () {
-                                  if (formKey.value.currentState!.validate()) {
-                                    authVM.login(
-                                        controllers: fieldsController, context);
-                                  }
-                                }).bottomSlide,
+                              //! Login Button
+                              Button(
+                                  isLoading: authVM.isLoading,
+                                  label: 'Login',
+                                  onPressed: () {
+                                    if (formKey.value.currentState!
+                                        .validate()) {
+                                      authVM.login(
+                                          controllers: fieldsController,
+                                          context);
+                                    }
+                                  }).bottomSlide,
 
-                            context.mediumGap,
-                            //! Don't have an account
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Don\'t Have An Account?',
-                                  style: context.labelMedium,
-                                ),
-                                TextButton(
-                                    style: ButtonStyle(
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.zero),
-                                    ),
-                                    onPressed: () =>
-                                        context.to(const SignupScreen()),
-                                    child: Text(
-                                      'Signup',
-                                      style: context.labelMedium.copyWith(
-                                          color: ColorManager.primaryColor,
-                                          decoration: TextDecoration.underline,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                              ],
-                            ),
+                              context.mediumGap,
+                              //! Don't have an account
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Don\'t Have An Account?',
+                                    style: context.labelMedium,
+                                  ),
+                                  TextButton(
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.zero),
+                                      ),
+                                      onPressed: () =>
+                                          context.to(const SignupScreen()),
+                                      child: Text(
+                                        'Signup',
+                                        style: context.labelMedium.copyWith(
+                                            color: ColorManager.primaryColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                ],
+                              ),
 
-                            context.xLargeGap,
-                          ],
-                        );
-                      },
+                              context.xLargeGap,
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
